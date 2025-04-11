@@ -273,7 +273,7 @@ for condition, times in condition_times.items():
 
 # Step 3: Convert to DataFrame and save to CSV
 pupil_df_cleaned = pd.DataFrame(data_rows)
-#csv_path = f'C:\\Users\\oakesonrj\\OneDrive - National Institutes of Health\\Desktop\\PhD misc\\pupillometry//cleaned pupil data\\{subj}_pupil_data_cleaned.csv'
+csv_path = f'{subj}_pupil_data_cleaned.csv'
 pupil_df_cleaned.to_csv(csv_path, index=False)
 
 print(f"Cleaned data saved to {csv_path}")
