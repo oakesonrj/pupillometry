@@ -13,10 +13,10 @@ from eyetracking_preprocessing import *
 
                                                                                   ##### LOADING IN DATA, SOME PARTICIPANTS ONLY HAVE PART A #######
 
-subj="14"
+subj=""
 
-part_A = f'C:\\Users\\oakesonrj\\OneDrive - National Institutes of Health\\Desktop\\PhD misc\\ASCs\\{subj}PA.asc'
-part_B = f'C:\\Users\\oakesonrj\\OneDrive - National Institutes of Health\\Desktop\\PhD misc\\ASCs\\{subj}PB.asc'
+part_A = #filepath
+part_B = #filepath
 
 raw_A = read_raw_eyelink(part_A, create_annotations = True)
 
