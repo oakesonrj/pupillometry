@@ -218,13 +218,6 @@ for condition, times in condition_times.items():
         for t, size in zip(valid_times, valid_pupil_sizes):
             data_rows.append({'Time (s)': t, 'Pupil Size': size, 'Condition': condition})
 
-# Step 3: Convert to DataFrame and save to CSV
-pupil_df_cleaned = pd.DataFrame(data_rows)
-csv_path = f'{subj}.csv'
-pupil_df_cleaned.to_csv(csv_path, index=False)
-
-print(f"Cleaned data saved to {csv_path}")
-
 
 # Visualization of cleaned data (NaNs removed)
 plt.figure(figsize=(15, 5))
