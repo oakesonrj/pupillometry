@@ -13,7 +13,7 @@ from eyetracking_preprocessing import *
 
                                                                                   ##### LOADING IN DATA, SOME PARTICIPANTS ONLY HAVE PART A #######
 
-subj="49"
+subj=""
 
 part_A = f'C:\\{subj}PA.asc' #file path
 part_B = f'C:\\{subj}PB.asc' #in this case, had two parts needing concatenating
@@ -110,9 +110,16 @@ blink_saccade_interp = raw_total.copy() #only interpolates blinks, cubic spline
 
 mne_interp = raw_total.copy() #mne base interpolation, linear 
 
+### MNE interpolation (linear)
+'''
+interpolate_pupil_mne = mne.preprocessing.eyetracking.interpolate_blinks(
+    mne_interp, buffer=(0.05, 0.2), interpolate_gaze=True
+)
+print(interpolate_pupil_mne.ch_names)
 
-
-##### Thresholded/All Saccade Interpolation #####
+#interpolate_pupil_mne.plot()
+'''
+######## Thresholded/All Saccade Interpolation #########
 
 #print(saccade_duration)
 print(f"saccade_duration type: {type(saccade_duration)}, shape: {np.shape(saccade_duration)}")
@@ -131,7 +138,7 @@ for i, long_saccade in saccade_annotations['duration'].items():
         print(f"Event: {i}, Duration in seconds: {long_saccade}; and Elapsed time: {elapsed_time[i]}")
         long_saccade_list.append(long_saccade)
 # Define the duration threshold for long saccades in samples
-duration_threshold = 41.5
+duration_threshold = 41.5 # this value may be different depending on the data
 
 # Calculate the saccade durations in samples
 saccade_duration = np.array(saccade_ends) - np.array(saccade_starts)
@@ -144,7 +151,7 @@ for idx in range(len(saccade_duration)):
     if saccade_duration[idx] >= duration_threshold:
 
         # Define window around the saccade (you can adjust this window as needed)
-        window = (-30, 30)  # 50 samples before the start and 50 samples after the end
+        window = (-30, 30)  # 30 samples before the start and 50 samples after the end
 
         start = np.array(saccade_starts)[idx] + window[0]
         end = np.array(saccade_ends)[idx] + window[1]
@@ -161,12 +168,12 @@ for idx in range(len(saccade_duration)):
         # Define the interpolation range
         interp_points = np.arange(start, end)
 
-        # Define points around the start and end for interpolation
+        # Define 4 points around the start and end for interpolation
         start_points_x = np.array([start - 12, start - 9, start - 6, start - 3])
         start_points_x = start_points_x[(start_points_x >= 0) & (start_points_x < len(pupil_data))]
         start_points_y = pupil_data[start_points_x]
 
-        # Define points after the end
+        # Define 4 points after the end
         end_points_x = np.array([end + 3, end + 6, end + 9, end + 12])
         end_points_x = end_points_x[(end_points_x >= 0) & (end_points_x < len(pupil_data))]
         end_points_y = pupil_data[end_points_x]
@@ -254,16 +261,8 @@ for idx_blink in range(len(blink_annotations)):
             blink_saccade_interp._data[:, start:start + len(new_section)] = new_section
         except Exception as e:
             print(f"Error processing saccade #{ii}: {e}")
+'''
 
-
-####
-#### MNE interpolation (linear) #####
-
-interpolate_pupil_mne = mne.preprocessing.eyetracking.interpolate_blinks(
-    mne_interp, buffer=(0.05, 0.2), interpolate_gaze=True
-)
-print(interpolate_pupil_mne.ch_names)
-####
 
 
 ### Compare interpolations ####
