@@ -13,15 +13,17 @@ This code will:
 
 
 1) concatenate_interpolate_annotate_save
-     -- Main code for loading in data, combining data (if needed, see interpolate_annotate_save for individual runs), interpolation using initially PChip interpolation (cubic spline, Akima and Makima are available as well). Then annotations can be done on interpolated data and double checked before saving.
+   -- Main code for loading in data, combining data (if needed, see interpolate_annotate_save for individual runs), interpolation using initially PChip interpolation (cubic spline, Akima and Makima are available as well). Then annotations can be done on interpolated data and double checked before saving.
 
-2) After running the code to line 193, this is where visual inspection and manual annotation will take place. Will save as a .fif
-     -- in the plot screen, press "a" to open the annotations pop-up, create a new annotation "BAD_" (can be named whatever) and tick the scrollable option
-     -- !! BUG WARNING !! it seems if you right click to erase an annotation made by mistake, there is a chance for MNE to delete all annotations, causing you to have to reload the data and start from the beginning. Be mindful of this
+2) After running the interpolation code, this is where visual inspection and manual annotation will take place. Will save as a .fif
+   -- in the plot screen, press "a" to open the annotations pop-up, create a new annotation "BAD_" (can be named whatever) and tick the scrollable option
+   -- !! BUG WARNING !! it seems if you right click to erase an annotation made by mistake, there is a chance for MNE to delete all annotations, causing you to have to reload the data and start from the beginning. Be mindful of this
 
-3) Load in the .fif file created in Step 2. Also does a lot of the things in Step 4.
+3) Epoching
+   -- Load in the .fif file created in Step 2. Also does a lot of the things in Step 4.
      -- Create a dictionary for epoching
      -- will allow for inspection of onsets, offsets, and durations of events
      -- saves new .fif
 
-4) Will convert BAD_ annotations to NaN then saves as a .csv
+5) pupillometry_stats.py
+   -- Will convert BAD_ annotations to NaN then saves as a .csv
