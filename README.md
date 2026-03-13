@@ -1,5 +1,3 @@
-*can ignore "preprocessing.py"
-
 The following code is task specific and related mainly to pupillometry. Be mindful of where to change things e.g., loading in data, onsets, offsets, durations, and adding synthetic offsets if needed.
 
 This code will:
@@ -14,8 +12,8 @@ This code will:
 !! Several portions have overlapping code and potential variable names !! 
 
 
-1) Saccade interpolation code experiments with various types of interpolations, either MNE's linear interpolation or two different cubic spline interpolations
-     -- if you're comfortable/confident with the cubic spline that we implemented, feel free to jump to step 2
+1) concatenate_interpolate_annotate_save
+     -- Main code for loading in data, combining data (if needed, see interpolate_annotate_save for individual runs), interpolation using initially PChip interpolation (cubic spline, Akima and Makima are available as well). Then annotations can be done on interpolated data and double checked before saving.
 
 2) After running the code to line 193, this is where visual inspection and manual annotation will take place. Will save as a .fif
      -- in the plot screen, press "a" to open the annotations pop-up, create a new annotation "BAD_" (can be named whatever) and tick the scrollable option
